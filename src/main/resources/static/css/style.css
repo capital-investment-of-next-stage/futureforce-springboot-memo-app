@@ -1,0 +1,463 @@
+:root {
+  --color-primary: #14b8a6;
+  --color-primary-dark: #0d9488;
+  --color-secondary: #3b82f6;
+  --color-secondary-dark: #2563eb;
+  --color-background: #f8fafc;
+  --color-background-alt: #f1f5f9;
+  --color-text: #334155;
+  --color-text-light: #64748b;
+  --color-white: #ffffff;
+  --color-border: #e2e8f0;
+  --color-danger: #ef4444;
+  --color-danger-dark: #dc2626;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 0.5rem;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+  color: var(--color-text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.app-container {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.app-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.form-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ボタンスタイル */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 0.875rem;
+  text-decoration: none; /* 下線を削除 */
+}
+
+.btn:hover {
+  text-decoration: none; /* ホバー時も下線を削除 */
+}
+
+.btn i {
+  margin-right: 0.375rem;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  color: var(--color-white);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, var(--color-primary-dark), var(--color-secondary-dark));
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  color: var(--color-white);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-background-alt);
+  color: var(--color-text);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-danger:hover {
+  background-color: var(--color-danger-dark);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-text);
+  padding-left: 0;
+}
+
+.btn-ghost:hover {
+  color: var(--color-primary);
+}
+
+.back-btn {
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.back-btn i {
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover i {
+  transform: translateX(-3px);
+}
+
+/* メモカードグリッド */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .notes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .notes-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* メモカード */
+.note-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.note-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.note-card-header {
+  padding: 1rem;
+  background: linear-gradient(to right, rgba(20, 184, 166, 0.1), rgba(59, 130, 246, 0.1));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.note-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-card-content {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.note-card-text {
+  color: var(--color-text-light);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 4.5rem;
+}
+
+.note-card-footer {
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+.note-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* メモ詳細 */
+.note-detail-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.note-detail-header {
+  padding: 1.5rem;
+  background: linear-gradient(to right, rgba(20, 184, 166, 0.1), rgba(59, 130, 246, 0.1));
+  border-bottom: 1px solid var(--color-border);
+}
+
+.note-date {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.note-date i {
+  margin-right: 0.25rem;
+}
+
+.note-detail-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.note-detail-content {
+  padding: 1.5rem;
+  min-height: 200px;
+}
+
+.note-detail-content p {
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
+
+.note-detail-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+/* フォーム */
+.note-form-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.form-group:last-of-type {
+  border-bottom: none;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  transition: var(--transition);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 200px;
+}
+
+.form-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+/* 空の状態 */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: var(--color-text-light);
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+.empty-state p {
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 404ページ */
+.not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.not-found i {
+  font-size: 5rem;
+  color: var(--color-text-light);
+  opacity: 0.3;
+  margin-bottom: 1.5rem;
+}
+
+.not-found h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.not-found p {
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+.not-found .btn i {
+  font-size: 0.875rem;
+  margin-bottom: 0;
+  opacity: 1;
+  color: inherit;
+}
+
+/* ページ切り替え */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+/* エラーメッセージのスタイル */
+.error-message {
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* フォームボタンのスタイル */
+.form-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+.form-button-container .btn {
+  min-width: 200px;
+  padding: 0.75rem 2rem;
+}
+
+/* フッターのレイアウト調整 */
+.note-card-footer {
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-background-alt);
+  border-top: 1px solid var(--color-border);
+}
+
+.note-card-footer .note-date {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.note-card-footer .note-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+/* 詳細画面のフッター調整 */
+.note-card-footer.detail-footer {
+  justify-content: space-between;
+}
+
+.note-card-footer.detail-footer .note-date {
+  flex: 1;
+  text-align: left;
+}
+
+.note-card-footer.detail-footer .note-actions {
+  margin-left: auto;
+}
