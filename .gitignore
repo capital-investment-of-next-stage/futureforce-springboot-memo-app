@@ -1,0 +1,40 @@
+target/
+*.jar
+*.war
+*.ear
+*.class
+.mvn/
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE関連
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+
+# ログファイル
+*.log
+logs/
+
+# 一時ファイル
+*.tmp
+*.temp
+*~
+
+# OS関連
+*.swp
+*.swo
+
+docker-compose.yml
