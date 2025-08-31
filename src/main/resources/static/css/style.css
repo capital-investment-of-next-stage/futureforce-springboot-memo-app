@@ -461,3 +461,73 @@ textarea {
 .note-card-footer.detail-footer .note-actions {
   margin-left: auto;
 }
+
+/* 優先順位：一覧・詳細の表示用 */
+.note-badge {
+  display:inline-block;
+  padding:.25rem .6rem;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.85rem;
+  line-height:1;
+}
+
+.note-badge.high   { background:#dc3545; color:#fff; }
+.note-badge.medium { background:#ffc107; color:#212529; }
+.note-badge.low    { background:#198754; color:#fff; }
+
+/* ラジオグループ全体 */
+.priority-group {
+  display: flex;
+  gap: 1rem;
+}
+
+/* デフォのラジオボタンを非表示 */
+.priority-radio {
+  display: none;
+}
+
+/* pill の共通スタイル */
+/* pill の共通スタイル */
+.priority-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.priority-radio {
+  display: none; /* ラジオ自体は非表示 */
+}
+
+.priority-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .4rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .9rem;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+/* デフォは薄めの色 */
+.priority-pill.high   { background:#f8d7da; color:#721c24; }
+.priority-pill.medium { background:#fff3cd; color:#856404; }
+.priority-pill.low    { background:#d4edda; color:#155724; }
+
+/* 選択中 */
+.priority-pill:has(.priority-radio:checked) {
+  border-color: #000;
+}
+
+.priority-pill.high:has(.priority-radio:checked) {
+  background:#dc3545; color:#fff;
+}
+.priority-pill.medium:has(.priority-radio:checked) {
+  background:#ffc107; color:#212529;
+}
+.priority-pill.low:has(.priority-radio:checked) {
+  background:#198754; color:#fff;
+}
