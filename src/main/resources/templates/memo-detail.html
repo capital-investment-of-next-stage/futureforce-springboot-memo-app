@@ -23,6 +23,11 @@
                 <p class="note-card-text" th:text="${memo.content}">本文</p>
             </div>
 
+            <!-- 追加：優先度表示 -->
+            <div class="note-card-priority">
+                <p>優先度: <span th:text="${memo.priority.label}">高/中/低</span></p>
+            </div>
+
             <div class="note-card-footer detail-footer">
                 <p class="note-date" th:text="${#temporals.format(memo.createdAt, 'yyyy/MM/dd HH:mm')}">作成日時</p>
                 <div class="note-actions">
