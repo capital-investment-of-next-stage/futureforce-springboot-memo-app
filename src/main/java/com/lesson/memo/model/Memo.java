@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,26 +34,8 @@ public class Memo {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
-
-    // 追加：優先度フィールド
-    @Enumerated(EnumType.STRING)
+    
     @Column(nullable = false)
     private Priority priority;
-}
 
-// Priority enum は別ファイルにしてもOKですが、同じファイルに書く場合
-enum Priority {
-    HIGH("高"),
-    MEDIUM("中"),
-    LOW("低");
-
-    private final String label;
-
-    Priority(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
-    }
 }
