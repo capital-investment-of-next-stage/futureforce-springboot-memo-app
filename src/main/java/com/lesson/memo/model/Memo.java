@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,6 +29,19 @@ public class Memo {
     @NotBlank(message = "内容を入力してください")
     @Column(nullable = false, length = 1000)
     private String content;
+    
+    @NotNull(message = "優先度を選択してください")
+    private Priority priority;
+    
+    public enum Priority {
+        HIGH("高"),
+        MEDIUM("中"),
+        LOW("低");
+
+        private final String label;
+        Priority(String label) { this.label = label; }
+        public String getLabel() { return label; }
+    }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
@@ -35,7 +49,6 @@ public class Memo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     
-    @Column(nullable = false)
-    private Priority priority;
+   
 
 }

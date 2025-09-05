@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lesson.memo.model.Memo;
-import com.lesson.memo.model.Priority;
 import com.lesson.memo.repository.MemoRepository;
 
 @Controller
@@ -43,7 +42,7 @@ public class MemoController {
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("memo", new Memo());
-        model.addAttribute("priorities", Priority.values()); 
+        model.addAttribute("priorities", Memo.Priority.values()); 
         return "memo-form";
     }
 
@@ -51,7 +50,7 @@ public class MemoController {
     public String create(@ModelAttribute @Valid Memo memo,
                          BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("priorities", Priority.values());
+            model.addAttribute("priorities", Memo.Priority.values());
             return "memo-form";
         }
 
@@ -77,14 +76,14 @@ public class MemoController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpServletResponse response) {
         if (model.containsAttribute("memo")) {
-            model.addAttribute("priorities", Priority.values());
+            model.addAttribute("priorities", Memo.Priority.values());
             return "memo-form";
         }
 
         return memoRepository.findById(id)
                 .map(memo -> {
                     model.addAttribute("memo", memo);
-                    model.addAttribute("priorities", Priority.values()); 
+                    model.addAttribute("priorities", Memo.Priority.values()); 
                     return "memo-form";
                 })
                 .orElseGet(() -> {
@@ -110,7 +109,7 @@ public class MemoController {
         Memo memoToUpdate = opt.get();
 
         if (result.hasErrors()) {
-            model.addAttribute("priorities", Priority.values());
+            model.addAttribute("priorities", Memo.Priority.values());
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
             redirectAttributes.addFlashAttribute("memo", memo);
             return "redirect:/memo/edit/" + id;
