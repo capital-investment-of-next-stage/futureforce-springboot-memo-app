@@ -16,13 +16,17 @@
             <a th:href="@{/memo}" class="btn btn-outline"><i class="ri-arrow-left-line"></i> 戻る</a>
         </div>
         <div class="note-card note-card-large">
-            <div class="note-card-header">
-                <h2 class="note-card-title" th:text="${memo.title}">タイトル</h2>
+            <div class="note-detail-header">
+                <h2 class="note-detail-title" th:text="${memo.title}">タイトル</h2>
+				<span th:if="${memo.priority == null}" class="note-badge">未設定</span>
+				<span class="note-badge high" th:if="${memo.priority?.name() == 'HIGH'}">高</span>
+				<span class="note-badge medium" th:if="${memo.priority?.name() == 'MEDIUM'}">中</span>
+				<span class="note-badge low" th:if="${memo.priority?.name() == 'LOW'}">低</span>
             </div>
             <div class="note-card-content">
                 <p class="note-card-text" th:text="${memo.content}">本文</p>
             </div>
-
+			  
             <div class="note-card-footer detail-footer">
                 <p class="note-date" th:text="${#temporals.format(memo.createdAt, 'yyyy/MM/dd HH:mm')}">作成日時</p>
                 <div class="note-actions">
