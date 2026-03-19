@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lesson.memo.model.Memo;
@@ -38,13 +39,15 @@ public class MemoController {
     @GetMapping("/new")
     public String showForm(Model model) {
         model.addAttribute("memo", new Memo());
+        model.addAttribute("priorities", Memo.Priority.values());
         return "memo-form";
     }
 
     @PostMapping("/create")
     public String create(@ModelAttribute @Valid Memo memo,
-            BindingResult result) {
+            BindingResult result, Model model) {
         if (result.hasErrors()) {
+        	model.addAttribute("priorities", Memo.Priority.values());
             return "memo-form";
         }
 
@@ -69,6 +72,7 @@ public class MemoController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model, HttpServletResponse response) {
+    	model.addAttribute("priorities", Memo.Priority.values());
         if (model.containsAttribute("memo")) {
             return "memo-form";
         }
@@ -100,6 +104,7 @@ public class MemoController {
         Memo memoToUpdate = opt.get();
 
         if (result.hasErrors()) {
+        	redirectAttributes.addFlashAttribute("priorities", Memo.Priority.values());
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
             redirectAttributes.addFlashAttribute("memo", memo);
             return "redirect:/memo/edit/" + id; // editにリダイレクト
@@ -107,6 +112,7 @@ public class MemoController {
 
         memoToUpdate.setTitle(memo.getTitle());
         memoToUpdate.setContent(memo.getContent());
+        memoToUpdate.setPriority(memo.getPriority());
         memoToUpdate.setUpdatedAt(LocalDateTime.now());
         memoRepository.save(memoToUpdate);
 
@@ -124,5 +130,24 @@ public class MemoController {
         }
 
         return "redirect:/memo";
+    }
+    
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+        List<Memo> memos;
+        
+        if (keyword != null && !keyword.isEmpty()) {
+            // キーワードがある場合：検索実行
+            memos = memoRepository.findByTitleContainingOrContentContainingOrderByUpdatedAtDesc(keyword, keyword);
+        } else {
+            // キーワードが空の場合：全件表示
+            memos = memoRepository.findAll();
+        }
+        
+        model.addAttribute("memos", memos);
+        model.addAttribute("keyword", keyword);
+        
+        // どちらの結果も、同じ「一覧画面(memo-list)」に表示させる
+        return "memo-list"; 
     }
 }
