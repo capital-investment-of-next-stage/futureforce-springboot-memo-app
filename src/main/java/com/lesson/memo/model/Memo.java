@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +25,8 @@ public class Memo {
     @NotBlank(message = "タイトルを入力してください")
     @Column(nullable = false, length = 100)
     private String title;
+    
+    @NotNull(message = "優先度を選択してください")
     private Priority priority;
 
     @NotBlank(message = "内容を入力してください")
