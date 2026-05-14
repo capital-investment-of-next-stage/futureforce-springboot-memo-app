@@ -18,13 +18,27 @@
         </div>
 
         <div class="note-form-card">
-            <form th:action="${memo.id} != null ? @{|/memo/update/${memo.id}|} : @{/memo/create}" th:object="${memo}" method="post">        
+            <form th:action="${memo.id} != null ? @{|/memo/update/${memo.id}|} : @{/memo/create}" th:object="${memo}" method="post"> 
+				<input type="hidden" th:field="*{id}"> 
                 <div class="form-group">
                     <label>タイトル：</label>
                     <input type="text" th:field="*{title}">
                     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></div>
                 </div>
-
+				
+				<div class="form-group">
+					<label>優先度</label>
+					<p th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}" class="error-message"></p>
+					<div class="priority-group">
+						 <div th:each="p : ${T(com.lesson.memo.model.Priority).values()}" style="display: inline-block; margin-right: 10px;">
+							<label class="priority-pill" th:classappend="${p.name() == '高' ? 'high' : (p.name() == '中' ? 'medium' : 'low')}">
+								<input type="radio" th:field="*{priority}"th:value="${p.name()}"class="priority-radio" style="display: none;">
+								<span th:text="${p}"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				
                 <div class="form-group">
                     <label>内容：</label>
                     <textarea th:field="*{content}"></textarea>

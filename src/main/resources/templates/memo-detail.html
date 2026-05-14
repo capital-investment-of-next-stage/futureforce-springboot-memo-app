@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>メモ詳細</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/priority.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 </head>
@@ -18,7 +19,9 @@
         <div class="note-card note-card-large">
             <div class="note-card-header">
                 <h2 class="note-card-title" th:text="${memo.title}">タイトル</h2>
+				<span class="priority-pill"th:classappend="${memo.priority?.name() == '高' ? 'high' : (memo.priority?.name() == '中' ? 'medium' : 'low')}"th:text="${memo.priority}"></span>
             </div>
+
             <div class="note-card-content">
                 <p class="note-card-text" th:text="${memo.content}">本文</p>
             </div>
