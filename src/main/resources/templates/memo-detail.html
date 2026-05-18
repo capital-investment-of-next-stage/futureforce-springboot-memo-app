@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <title>メモ詳細</title>
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
 </head>
-
 <body>
     <div class="container">
         <div class="header">
@@ -18,23 +16,22 @@
         <div class="note-card note-card-large">
             <div class="note-card-header">
                 <h2 class="note-card-title" th:text="${memo.title}">タイトル</h2>
+                <span th:text="${memo.priority.label}"
+                      th:classappend="${memo.priority.name() == 'HIGH'} ? 'priority-high' : (${memo.priority.name() == 'MEDIUM'} ? 'priority-medium' : 'priority-low')"
+                      class="priority-badge"></span>
             </div>
             <div class="note-card-content">
                 <p class="note-card-text" th:text="${memo.content}">本文</p>
             </div>
-
             <div class="note-card-footer detail-footer">
                 <p class="note-date" th:text="${#temporals.format(memo.createdAt, 'yyyy/MM/dd HH:mm')}">作成日時</p>
                 <div class="note-actions">
                     <a th:href="@{|/memo/edit/${memo.id}|}" class="btn btn-primary">編集</a>
-                    <a th:href="@{|/memo/delete/${memo.id}|}" class="btn btn-danger">
-                        削除
-                    </a>
+                    <a th:href="@{|/memo/delete/${memo.id}|}" class="btn btn-danger">削除</a>
                 </div>
             </div>
         </div>
     </div>
     <script th:src="@{/js/common.js}"></script>
 </body>
-
 </html>

@@ -31,6 +31,14 @@ public class MemoController {
     @GetMapping
     public String list(Model model) {
         List<Memo> memos = memoRepository.findAll();
+        memos.sort((a, b) -> {
+            int[] order = {0, 1, 2};
+            java.util.Map<com.lesson.memo.model.Priority, Integer> priorityOrder = new java.util.HashMap<>();
+            priorityOrder.put(com.lesson.memo.model.Priority.HIGH, 0);
+            priorityOrder.put(com.lesson.memo.model.Priority.MEDIUM, 1);
+            priorityOrder.put(com.lesson.memo.model.Priority.LOW, 2);
+            return priorityOrder.get(a.getPriority()) - priorityOrder.get(b.getPriority());
+        });
         model.addAttribute("memos", memos);
         return "memo-list";
     }
@@ -60,7 +68,7 @@ public class MemoController {
         Optional<Memo> memo = memoRepository.findById(id);
         if (memo.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return "not-found"; // エラー画面にリダイレクト
+            return "not-found"; // エラー画面にリダイレクチE
         }
 
         model.addAttribute("memo", memo.get());
@@ -102,7 +110,7 @@ public class MemoController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
             redirectAttributes.addFlashAttribute("memo", memo);
-            return "redirect:/memo/edit/" + id; // editにリダイレクト
+            return "redirect:/memo/edit/" + id; // editにリダイレクチE
         }
 
         memoToUpdate.setTitle(memo.getTitle());
