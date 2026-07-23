@@ -24,6 +24,18 @@
                     <input type="text" th:field="*{title}">
                     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></div>
                 </div>
+				
+		       <div class="form-group">
+			   <label>優先度:</label>
+				<input id="high" class="btn-check" type="radio" th:field="*{priority}" th:value="${T(com.lesson.memo.model.Priority).HIGH}">
+				<label for="high" class="btn btn-outline-danger">高</label>
+				
+				<input id="medium" class="btn-check" type="radio" th:field="*{priority}" th:value="${T(com.lesson.memo.model.Priority).MEDIUM}">
+				<label for="medium" class="btn btn-outline-warning">中</label>
+				
+				<input id="low" class="btn-check" type="radio" th:field="*{priority}" th:value="${T(com.lesson.memo.model.Priority).LOW}">
+				<label for="low" class="btn btn-outline-success">低</label>
+				   </div>
 
                 <div class="form-group">
                     <label>内容：</label>
@@ -33,9 +45,8 @@
 
                 <div class="form-button-container">
                     <button type="submit" class="btn btn-primary" th:text="${memo.id} != null ? '更新' : '作成'">作成</button>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
     <script th:src="@{/js/common.js}"></script>
 </body>
