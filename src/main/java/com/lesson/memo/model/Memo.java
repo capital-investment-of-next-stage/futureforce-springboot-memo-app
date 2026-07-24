@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -27,6 +28,7 @@ public class Memo {
     @Column(nullable = false, length = 100)
     private String title;
     
+    @NotNull(message = "優先度を選択してください")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Priority priority;
