@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lesson.memo.model.Memo;
@@ -42,6 +43,30 @@ public class MemoController {
         model.addAttribute("memos", memos);
         return "memo-list";
     }
+    
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false) String keyword, Model model) {
+    	List<Memo> memos;
+    	
+    	if (keyword == null || keyword.isEmpty()) {
+    		memos = memoRepository.findAll();
+    	} else {
+    		memos = memoRepository.findByTitleContaining(keyword);
+    	}
+    	
+    	memos.sort((memo1, memo2) ->
+    	    Integer.compare(
+    	    		memo1.getPriority().getOrder(),
+    	    		memo2.getPriority().getOrder()
+    	    		)
+    	    );
+    	
+    	model.addAttribute("memos", memos);
+    	model.addAttribute("keyword", keyword);
+    	
+    	return "memo-list";
+    }
+    
 
     @GetMapping("/new")
     public String showForm(Model model) {
