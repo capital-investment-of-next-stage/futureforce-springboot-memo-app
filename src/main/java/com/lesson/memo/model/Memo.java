@@ -40,7 +40,7 @@ public class Memo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     
-    @NotNull(message = "優先度を選択してください")//mi
+    @NotNull(message = "優先度を選択してください")//
     @Enumerated(EnumType.STRING)//追記（例: HIGH, LOW など）が、そのままDBの列に保存
     private Priority priority;
     
