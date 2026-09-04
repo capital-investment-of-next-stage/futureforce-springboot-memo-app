@@ -4,6 +4,8 @@ target/
 *.ear
 *.class
 .mvn/
+.metadata/
+Servers/
 
 # macOS
 .DS_Store
