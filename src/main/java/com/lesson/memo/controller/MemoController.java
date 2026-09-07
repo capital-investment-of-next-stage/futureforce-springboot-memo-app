@@ -44,17 +44,17 @@ public class MemoController {
     public String serch(Model model,
 //    		HTMLで検索した内容をここでkeywordに入れている
     					@RequestParam(required = false)String keyword ) {
-    	model.addAttribute("memo", new Memo());
-    	if(keyword == null || keyword.isEmpty()) {
-    		List <Memo> memos = memoRepository.findAllByOrderByPriorityAsc();
-    		model.addAttribute("memos", memos);
+    	
+    	List <Memo> memos = null;
+    	if(keyword == null || keyword.isBlank()) {
+    		memos = memoRepository.findAllByOrderByPriorityAsc();
+    		
     	}else {
-    		List <Memo> keywords = memoRepository.findByTitleContainingOrContentContaining(keyword,keyword);
-    		
-    		model.addAttribute("memos" , keywords);
-    		
-    		return "memo-list";
+    		memos = memoRepository.findByTitleContainingOrContentContainingOrderByPriorityAsc(keyword,keyword);
+    
     	}
+
+			model.addAttribute("memos", memos);
     		return "memo-list";	
     }
 

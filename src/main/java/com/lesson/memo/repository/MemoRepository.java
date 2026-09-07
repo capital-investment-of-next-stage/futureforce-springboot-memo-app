@@ -11,5 +11,5 @@ public interface MemoRepository extends JpaRepository<Memo, Long> {
 	 
 	 
 //	 Memo.JAVA のタイトルとコンテンツの検索
-	 List<Memo> findByTitleContainingOrContentContaining(String title, String content);
+	 List<Memo> findByTitleContainingOrContentContainingOrderByPriorityAsc(String title, String content);
 }
