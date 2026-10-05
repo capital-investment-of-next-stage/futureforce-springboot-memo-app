@@ -116,7 +116,9 @@ public class MemoController {
 
         memoToUpdate.setTitle(memo.getTitle());
         memoToUpdate.setContent(memo.getContent());
+        memoToUpdate.setPriority(memo.getPriority());
         memoToUpdate.setUpdatedAt(LocalDateTime.now());
+        
         memoRepository.save(memoToUpdate);
 
         return "redirect:/memo/detail/" + id;

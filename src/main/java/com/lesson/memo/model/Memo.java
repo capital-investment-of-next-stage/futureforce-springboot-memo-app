@@ -37,6 +37,6 @@ public class Memo {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;
     
-    @NotNull 
+    @NotNull (message="必須")
     private Priority priority;
 }
