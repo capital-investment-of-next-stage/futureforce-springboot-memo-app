@@ -24,12 +24,23 @@
                     <input type="text" th:field="*{title}">
                     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-message"></div>
                 </div>
+				<div class="form-group">
+					<label>優先度(必須)</label>
+					
+					<div class="priority-group">
+					<label th:each="priority:${priorities}" class="priority-pill" th:classappend="${priority.toString().toLowerCase()}">
+					<input type="radio" class="priority-radio"  th:field="*{priority}" th:value="${priority}">									<span th:text="${priority}"></span>
+					</label>
+					</div>
+				</div>
 
                 <div class="form-group">
                     <label>内容：</label>
                     <textarea th:field="*{content}"></textarea>
                     <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error-message"></div>
                 </div>
+				
+				
 
                 <div class="form-button-container">
                     <button type="submit" class="btn btn-primary" th:text="${memo.id} != null ? '更新' : '作成'">作成</button>

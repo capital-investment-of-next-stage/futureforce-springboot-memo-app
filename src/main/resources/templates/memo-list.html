@@ -22,10 +22,14 @@
             <div class="note-card" th:each="memo : ${memos}">
                 <div class="note-card-header">
                     <h3 class="note-card-title" th:text="${memo.title}">タイトル</h3>
+					<span th:if="${memo.priority != null}" class="note-badge" th:classappend="${#strings.toLowerCase(memo.priority.toString())}"
+					th:text="${memo.priority}" ></span>
                 </div>
+				
                 <div class="note-card-content">
                     <p class="note-card-text" th:text="${memo.content}">内容</p>
                 </div>
+			
                 <div class="note-card-footer">
                     <p class="note-date" th:text="${#temporals.format(memo.createdAt, 'yyyy/MM/dd HH:mm')}">日付</p>
                     <div class="note-actions">
