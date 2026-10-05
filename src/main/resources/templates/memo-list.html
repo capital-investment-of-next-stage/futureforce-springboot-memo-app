@@ -17,6 +17,10 @@
                 <i class="ri-add-circle-line"></i> 新規メモ
             </a>
         </div>
+		<form th:action="@{/memo}" method="get">
+			<input type="text" name="key" placeholder="検索キーワード">
+			<button type="submit">検索</button>
+		</form>
 
         <div class="notes-grid">
             <div class="note-card" th:each="memo : ${memos}">
