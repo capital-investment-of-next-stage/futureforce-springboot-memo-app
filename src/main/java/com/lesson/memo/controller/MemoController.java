@@ -1,7 +1,6 @@
 package com.lesson.memo.controller;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +39,6 @@ public class MemoController {
     	else {
     		memos=memoRepository.findByTitleContaining(key);
     	}
-        memos.sort(Comparator.comparing(Memo::getPriority));
         model.addAttribute("memos", memos);
         return "memo-list";
     }
