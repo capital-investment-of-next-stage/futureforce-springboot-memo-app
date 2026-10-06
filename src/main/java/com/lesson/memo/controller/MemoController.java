@@ -38,7 +38,7 @@ public class MemoController {
     		memos=memoRepository.findAll();
     	}
     	else {
-    		memos=memoRepository.findByTitleContaining(key);
+    		memos=memoRepository.findByTitleContainingOrContentContaining(key,key);
     	}
     	
         memos.sort(Comparator.comparing(Memo::getPriority));
