@@ -34,7 +34,7 @@ public class MemoController {
     @GetMapping
     public String list(@RequestParam(required=false) String key,Model model) {
     	List<Memo>memos;
-    	if(key == null || key.isEmpty()) {
+    	if(key == null || key.isBlank()) {
     		memos=memoRepository.findAll();
     	}
     	else {
