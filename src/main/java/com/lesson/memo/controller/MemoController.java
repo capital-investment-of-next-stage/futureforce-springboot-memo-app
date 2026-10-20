@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lesson.memo.model.Memo;
 import com.lesson.memo.repository.MemoRepository;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 @Controller
-@RequestMapping("/memo")
+@RequestMapping("/memos")
 public class MemoController {
 
     @Autowired
@@ -51,7 +52,7 @@ public class MemoController {
         memo.setCreatedAt(LocalDateTime.now());
         memo.setUpdatedAt(LocalDateTime.now());
         memoRepository.save(memo);
-        return "redirect:/memo";
+        return "redirect:/memos";
     }
 
     @GetMapping("/detail/{id}")
@@ -102,7 +103,7 @@ public class MemoController {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.memo", result);
             redirectAttributes.addFlashAttribute("memo", memo);
-            return "redirect:/memo/edit/" + id; // editにリダイレクト
+            return "redirect:/memos/edit/" + id; // editにリダイレクト
         }
 
         memoToUpdate.setTitle(memo.getTitle());
@@ -110,7 +111,7 @@ public class MemoController {
         memoToUpdate.setUpdatedAt(LocalDateTime.now());
         memoRepository.save(memoToUpdate);
 
-        return "redirect:/memo/detail/" + id;
+        return "redirect:/memos/detail/" + id;
     }
 
     @GetMapping("/delete/{id}")
@@ -123,6 +124,22 @@ public class MemoController {
             return "not-found";
         }
 
-        return "redirect:/memo";
+        return "redirect:/memos";
+    }
+    
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
+    	List<Memo> memoList;
+    	
+    	if (keyword == null || keyword.trim().isEmpty()) {
+    		memoList = memoRepository.findAll();
+    	} else {
+    		memoList = memoRepository.findByTitleContaining(keyword);
+    	}
+    	
+    	model.addAttribute("memos", memoList);
+    	model.addAttribute("keyword", keyword);
+    	
+    	return "memo-list";
     }
 }
