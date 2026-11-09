@@ -18,6 +18,7 @@
         <div class="note-card note-card-large">
             <div class="note-card-header">
                 <h2 class="note-card-title" th:text="${memo.title}">タイトル</h2>
+				<span th:text="${memo.priority.label}" class="priority-pill" th:classappend="${memo.priority.label == '高' ? 'high' : memo.priority.label == '中' ? 'medium' : 'low'}">優先度</span>
             </div>
             <div class="note-card-content">
                 <p class="note-card-text" th:text="${memo.content}">本文</p>
